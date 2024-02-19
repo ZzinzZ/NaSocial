@@ -12,3 +12,4 @@
 -npm init or yarn init
 -git init
 -git commit -m "Initial commit"
+-git remote add origin https://github.com/ZzinzZ/NaSocial.git
