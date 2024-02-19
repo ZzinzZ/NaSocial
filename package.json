@@ -1,0 +1,22 @@
+{
+  "name": "nasocial",
+  "version": "1.0.0",
+  "description": "A mini social network for Na project",
+  "main": "src/sever.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZzinzZ/NaSocial.git"
+  },
+  "keywords": [
+    "nasocial"
+  ],
+  "author": "Nhat Anh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZzinzZ/NaSocial/issues"
+  },
+  "homepage": "https://github.com/ZzinzZ/NaSocial#readme"
+}
