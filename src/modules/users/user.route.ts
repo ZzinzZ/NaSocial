@@ -34,7 +34,8 @@ export default class UserRoute implements Route {
     ); // PUT http://localhost:5000/api/users/:id
 
     //get all users routes
-    this.router.get(this.path, this.userController.getAllUsers); // GET http://localhost:5000/api/users
+    this.router.get(this.path, this.userController.getAllUsers);
+     // GET http://localhost:5000/api/users
 
     //get users route
     this.router.get(

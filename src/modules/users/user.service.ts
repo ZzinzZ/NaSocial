@@ -11,6 +11,8 @@ import jwt from "jsonwebtoken";
 
 class UserService {
   public userSchema = UserSchema;
+
+  // Create user
   public async createUser(model: RegisterDto): Promise<TokenData> {
     if (isEmptyObject(model)) {
       throw new HttpException(400, "Model is empty");
@@ -39,6 +41,8 @@ class UserService {
     return this.createToken(createdUser);
   }
 
+
+  //Update user
   public async updateUser(userId: string, model: RegisterDto): Promise<IUser> {
     if (isEmptyObject(model)) {
       throw new HttpException(400, "Model is empty");
@@ -51,12 +55,17 @@ class UserService {
     let avatar = user.avatar;
     if (user.email === model.email) {
       throw new HttpException(400, "You need to enter another email");
-    } else {
-      avatar = gravatar.url(model.email!, {
-        size: "200",
-        rating: "g",
-        default: "mm",
-      });
+    } 
+
+    const checkEmailExisted = await this.userSchema.find({
+      $and: [
+        {email: {$eq: model.email} },
+        {_id: {$ne: userId}}
+      ]
+    }).exec();
+
+    if(checkEmailExisted.length !== 0) {
+      throw new HttpException(400, 'This email has been used');
     }
 
     let updateUserById;
@@ -68,14 +77,18 @@ class UserService {
           ...model,
           avatar: avatar,
           password: hashedPassword,
-        })
+        }, {new: true})
         .exec();
     } else {
       updateUserById = await this.userSchema
-        .findByIdAndUpdate(userId, {
-          ...model,
-          avatar: avatar,
-        })
+        .findByIdAndUpdate(
+          userId,
+          {
+            ...model,
+            avatar: avatar,
+          },
+          { new: true }
+        )
         .exec();
     }
 
@@ -85,6 +98,8 @@ class UserService {
     return updateUserById;
   }
 
+
+  //Get user by Id
   public async getUserById(userId: string): Promise<IUser> {
     const user = await this.userSchema.findById(userId);
 
@@ -94,11 +109,15 @@ class UserService {
     return user;
   }
 
+
+  // Get all users
   public async getAllUser(): Promise<IUser[]> {
     const user = await this.userSchema.find().exec();
     return user;
   }
 
+
+  //Get all user paging
   public async getAllPaging(
     keyword: string,
     page: number
@@ -130,6 +149,7 @@ class UserService {
     } as IPagination<IUser>;
   }
 
+  //Delete a user
   public async deleteUser(userId: string): Promise<IUser> {
     const deleteUser = await this.userSchema.findByIdAndDelete(userId).exec();
     if(!deleteUser) {
@@ -138,6 +158,8 @@ class UserService {
     return deleteUser;
   }
 
+
+  //Create a new token
   private createToken(user: IUser): TokenData {
     const dataInToken: DataStoredInToken = { id: user._id };
     const secret: string = process.env.JWT_TOKEN_SECRET!;
