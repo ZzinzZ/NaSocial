@@ -9,6 +9,10 @@ export interface IProfile {
   bio: string;
   experience: IExperience[];
   education: IEducation[];
+  followings: IFollowing[];
+  followers: IFollower[];
+  friends: IFriend[];
+  friend_requests: IFriendRequests[];
   social: ISocial;
   date: Date;
 }
@@ -41,4 +45,22 @@ export interface ISocial extends Record<string, string> {
     facebook: string;
     instagram:string;
     linkedin: string;
+}
+
+export interface IFollowing {
+    user: string;
+}
+
+export interface IFollower {
+    user: string;
+}
+
+export interface IFriend {
+  user: string;
+  date: Date;
+}
+
+export interface IFriendRequests {
+  user: string;
+  date: Date;
 }

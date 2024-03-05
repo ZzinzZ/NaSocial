@@ -79,13 +79,40 @@ class ProfileRoute implements Route {
     );
     // http://localhost:5000/api/v1/profile/education
 
-    //PUT remove Profile experience
-    this.router.put(
-      `${this.path}/experience/:edu_id`,
+    //POST follow profile
+    this.router.post(
+      `${this.path}/following/:id`,
       authMiddleware,
-      this.profileController.deleteProfileEducation
+      this.profileController.follow
     );
-    // http://localhost:5000/api/v1/profile/education/edu_id
+
+    //DELETE un follow profile
+    this.router.delete(
+      `${this.path}/following/:id`,
+      authMiddleware,
+      this.profileController.unFollow
+    );
+
+    //POST add friend
+    this.router.post(
+      `${this.path}/friends/:id`,
+      authMiddleware,
+      this.profileController.addFriend
+    );
+
+    //DELETE unFriend
+    this.router.delete(
+      `${this.path}/friends/:id`,
+      authMiddleware,
+      this.profileController.unFriend
+    );
+
+    //PUT accept friend request
+    this.router.put(
+      `${this.path}/friends/:id`,
+      authMiddleware,
+      this.profileController.acceptFriendRequest
+    );
   }
 }
 

@@ -85,6 +85,46 @@ const ProfileSchema = new mongoose.Schema({
       },
     },
   ],
+  followings: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+    },
+  ],
+  followers: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+    },
+  ],
+  friends: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+  friend_requests: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
   social: {
     youtube: {
       type: String,
@@ -105,7 +145,7 @@ const ProfileSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 
 export default mongoose.model<IProfile & Document>('profile', ProfileSchema);
