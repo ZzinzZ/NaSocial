@@ -7,6 +7,10 @@ import cors from "cors";
 import helmet from "helmet";
 import { Logger } from "@core/utils";
 import { errorMiddleware } from "@core/middlewares";
+
+const swaggerUi = require("swagger-ui-express");
+const fs = require("fs");
+const YAML = require("yaml");
 class App {
   public app: express.Application;
   public port: string | number;
@@ -20,6 +24,7 @@ class App {
     this.initializeMiddleware();
     this.initializeRoutes(routes);
     this.initializeErrorMiddleware();
+    this.initializeSwagger();
   }
 
   private initializeRoutes(routes: Route[]) {
@@ -65,6 +70,14 @@ class App {
     } catch (error) {
       Logger.error("Connect error: " + error);
     }
+  }
+
+  //Swagger api
+  private initializeSwagger() {
+    const file = fs.readFileSync("./src/swagger.yaml", "utf8");
+    const swaggerDocument = YAML.parse(file);
+
+    this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   }
 }
 
