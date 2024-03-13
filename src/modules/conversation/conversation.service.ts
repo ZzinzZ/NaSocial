@@ -1,7 +1,6 @@
 import { ConversationSchema } from ".";
 import { UserSchema } from "@modules/users";
 import { IConversation, IMessage } from "./conversation.interface";
-import IUser from "@modules/users/user.interface";
 import SendMessageDto from "./dtos/sendMessage.dto";
 import { HttpException } from "@core/exceptions";
 
