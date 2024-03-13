@@ -1,0 +1,80 @@
+swagger: "2.0"
+info: 
+  description: "NaSocial Api docs"
+  version: "1.0.0"
+  title: "NaSocial"
+  contact: 
+    email: "nhata338@gmail.com"
+  license: 
+    name: "MIT License"
+    url: "https://opensource.org/license/mit"
+host: "localhost:5000"
+basePath: "/api/v1"
+tags: 
+  - name: "Auth"
+    description: "Authentication api"
+  - name: "Conversations"
+    description: "Messages api"
+  - name: "Posts"
+    description: "Posts api"
+  - name: "Groups"
+    description: "Groups api"
+  - name: "Profiles"
+    description: "Profiles api"
+  - name: "Users"
+    description: "Users api"
+schemes: 
+- "http"
+paths:
+  /auth:
+    post:
+      tags:
+      - "Auth"
+      summary: "Login Apis and get token"
+      description: "Input email and password"
+      operationId: "Login"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Login for user"
+        required: true
+        schema: 
+          $ref: "#/definitions/LoginDto"
+      responses:
+        "400":
+          description: "Invalid input"
+  /posts: 
+    post:
+      tags:
+      - "Posts"
+      summary: "Create a new post"
+      description: "Input post content"
+      operationId: "postId"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Create post body"
+        required: true
+        schema: 
+          $ref: "#/definitions/CreatePostDto"
+      responses:
+        "400":
+          description: "Invalid input"
+
+
+definitions:
+  LoginDto: 
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
