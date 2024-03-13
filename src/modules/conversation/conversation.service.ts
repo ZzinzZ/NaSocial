@@ -83,7 +83,7 @@ export default class ConversationService {
   public async getConversations(userId: string): Promise<IConversation[]> {
     const user = await UserSchema.findById(userId).select('-password').exec();
     if(!user) {
-        throw new HttpException(404, 'User not found!');
+        throw new HttpException(404, 'User not found');
     }
     const conversations = await ConversationSchema.find({
         $or: [{user1: userId}, {user2: userId}]
