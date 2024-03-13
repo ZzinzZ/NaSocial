@@ -29,7 +29,7 @@ paths:
   /auth:
     post:
       tags:
-      - "auth"
+      - "Auth"
       summary: "Login Apis and get token"
       description: "Input email and password"
       operationId: "Login"
@@ -47,6 +47,28 @@ paths:
       responses:
         "400":
           description: "Invalid input"
+  /posts: 
+    post:
+      tags:
+      - "Posts"
+      summary: "Create a new post"
+      description: "Input post content"
+      operationId: "postId"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Create post body"
+        required: true
+        schema: 
+          $ref: "#/definitions/CreatePostDto"
+      responses:
+        "400":
+          description: "Invalid input"
+
 
 definitions:
   LoginDto: 

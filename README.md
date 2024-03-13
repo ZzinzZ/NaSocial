@@ -16,3 +16,6 @@
 
 ### Configuring TypeScript Compilation
 -tsc --init
+
+### ESLint
+yarn add eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin -D
