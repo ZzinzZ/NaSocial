@@ -4,5 +4,6 @@ export interface DataStoredInToken {
 
 export interface TokenData {
   token: string;
+  
 }
 
