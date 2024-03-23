@@ -3,7 +3,6 @@ export interface DataStoredInToken {
 }
 
 export interface TokenData {
-  token: string;
-  refreshToken: string;
+    token: string;
+    refreshToken: string;
 }
-
